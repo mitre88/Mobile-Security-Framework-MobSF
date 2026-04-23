@@ -33,7 +33,8 @@ def main():
     try:
         if not connection.introspection.table_names():
             db()
-    except Exception:
+    except Exception as exp:
+        print(f"Database initialization error: {exp}")
         db()
     listen = '127.0.0.1:8000'
     if len(sys.argv) == 2 and sys.argv[1]:

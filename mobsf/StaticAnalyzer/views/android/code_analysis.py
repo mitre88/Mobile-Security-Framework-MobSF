@@ -42,7 +42,7 @@ def get_perm_rules(checksum, perm_rules, android_permissions):
             return None
         dynamic_rules = []
         with perm_rules.open('r') as perm_file:
-            prules = yaml.load(perm_file, Loader=yaml.FullLoader)
+            prules = yaml.safe_load(perm_file)
         for p in prules:
             if p['id'] in android_permissions.keys():
                 dynamic_rules.append(p)
