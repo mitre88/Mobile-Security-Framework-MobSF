@@ -1,5 +1,6 @@
 #!/usr/bin/env python3
 
+import importlib.util
 import re
 
 import requests
@@ -45,11 +46,11 @@ for pd in permission_divs:
                                            description]
 
 # check the permissions we currently have in dvm_permissions.py
-DVM_PERMISSIONS = {}
-eval(compile(open('../mobsf/StaticAnalyzer/views/'
-                  'android/kb/dvm_permissions.py').read(),
-             '<string>',
-             'exec'))
+dvm_permissions_path = '../mobsf/StaticAnalyzer/views/android/kb/dvm_permissions.py'
+spec = importlib.util.spec_from_file_location("dvm_permissions", dvm_permissions_path)
+dvm_module = importlib.util.module_from_spec(spec)
+spec.loader.exec_module(dvm_module)
+DVM_PERMISSIONS = dvm_module.DVM_PERMISSIONS
 MANIFEST_PERMISSIONS = DVM_PERMISSIONS['MANIFEST_PERMISSION']
 
 for permission_name in online_permissions:
