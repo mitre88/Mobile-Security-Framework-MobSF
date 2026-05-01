@@ -297,12 +297,10 @@ def generate_secret():
     (pubkey, privkey) = rsa.newkeys(2048)
 
     # Save private and pub key
-    priv_key_file = open(CONFIG['MobSF']['priv_key'], 'w')
-    priv_key_file.write(privkey.save_pkcs1().decode('utf-8'))
-    priv_key_file.close()
-    pub_key_file = open(CONFIG['MobSF']['pub_key'], 'w')
-    pub_key_file.write(pubkey.save_pkcs1().decode('utf-8'))
-    pub_key_file.close()
+    with open(CONFIG['MobSF']['priv_key'], 'w') as priv_key_file:
+        priv_key_file.write(privkey.save_pkcs1().decode('utf-8'))
+    with open(CONFIG['MobSF']['pub_key'], 'w') as pub_key_file:
+        pub_key_file.write(pubkey.save_pkcs1().decode('utf-8'))
     config_path = os.path.join(
         expanduser('~'),
         '.MobSF',

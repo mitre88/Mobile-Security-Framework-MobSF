@@ -183,7 +183,7 @@ def code_analysis(checksum, app_dir, typ, manifest_file, android_permissions):
                 try:
                     content = pfile.read_text('utf-8', 'ignore')
                     # Certain file path cannot be read in windows
-                except Exception:
+                except OSError:
                     continue
                 relative_java_path = pfile.as_posix().replace(src, '')
                 urls, urls_nf, emails_nf = url_n_email_extract(
