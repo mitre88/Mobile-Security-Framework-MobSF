@@ -256,7 +256,7 @@ def filename_from_path(path):
 def get_md5(data):
     if isinstance(data, str):
         data = data.encode('utf-8')
-    return hashlib.md5(data).hexdigest()
+    return hashlib.sha256(data).hexdigest()
 
 
 def find_between(s, first, last):
